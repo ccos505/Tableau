@@ -17,10 +17,10 @@ Install the required Python packages using pip: <br>
 # Setup <br>
 
 1.Create a .env file in the same directory as the script with the following variables: <br>
-`TABLEAU_SERVER_URL=<your_tableau_server_url>`
-`TABLEAU_USERNAME=<your_tableau_username>`
-`TABLEAU_PASSWORD=<your_tableau_password>`
-`TABLEAU_SITE_ID=<your_tableau_site_id> # Optional, leave empty if not applicable`
+`TABLEAU_SERVER_URL=<your_tableau_server_url>` <br>
+`TABLEAU_USERNAME=<your_tableau_username>` <br>
+`TABLEAU_PASSWORD=<your_tableau_password>` <br>
+`TABLEAU_SITE_ID=<your_tableau_site_id> # Optional, leave empty if not applicable` <br>
 
 2.Ensure you have the necessary permissions on the Tableau Server to fetch user and item information. <br>
 
