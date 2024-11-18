@@ -1,0 +1,6 @@
+tableauserverclient 
+python-dotenv 
+argparse 
+openpyxl 
+pandas 
+numpy 
