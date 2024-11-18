@@ -95,7 +95,7 @@ class Permission(Connection):
 
     def fetch_and_list_permissions(self) -> pd.DataFrame:
         project = [p for p in TSC.Pager(self.server.projects)]
-        sources = ['projects', 'workbooks', 'datasources', 'flows']
+        sources = {'projects', 'workbooks', 'datasources', 'flows'}
         projects = []
 
         for attr in sources:
