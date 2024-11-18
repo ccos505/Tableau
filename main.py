@@ -26,7 +26,7 @@ class Connection:
             return server
         except Exception as e:
             print(f"Failed to sign in: {e}")
-            return None
+            return
 
     def __del__(self):
         if self.server and self.server.is_signed_in():
