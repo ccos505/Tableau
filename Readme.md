@@ -12,7 +12,7 @@ Tableau Server with appropriate user permissions to access the desired data
 Clone this repository or download the script. <br>
 
 Install the required Python packages using pip: <br>
-`pip install openpyxl tableauserverclient python-dotenv pandas numpy argparse pytz` <br>
+`pip install openpyxl tableauserverclient python-dotenv pandas numpy argparse xlsxwriter` <br>
 or <br>
 `pip install -r requirements.txt` <br>
 

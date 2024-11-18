@@ -1,5 +1,6 @@
 tableauserverclient 
 python-dotenv 
+xlsxwriter
 argparse 
 openpyxl 
 pandas 
