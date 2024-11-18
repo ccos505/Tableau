@@ -1,10 +1,9 @@
-from openpyxl.styles import PatternFill
+from typing import List, Tuple, Optional
 import tableauserverclient as TSC
 from dotenv import load_dotenv
 import pandas as pd
 import numpy as np
 import argparse
-import pytz
 import os
 
 
@@ -12,11 +11,11 @@ load_dotenv()
 
 
 class Connection:
-    def __init__(self, server_url, username, password, site_id=''):
+    def __init__(self, server_url: str, username: str, password: str, site_id: str = ''):
         self.server = self.connect_to_tableau(
             server_url, username, password, site_id)
 
-    def connect_to_tableau(self, server_url, username, password, site_id=''):
+    def connect_to_tableau(self, server_url: str, username: str, password: str, site_id: str = ''):
         tableau_auth = TSC.TableauAuth(username, password, site_id)
         server = TSC.Server(server_url, use_server_version=True)
         try:
@@ -26,7 +25,7 @@ class Connection:
             return server
         except Exception as e:
             print(f"Failed to sign in: {e}")
-            return
+            raise
 
     def __del__(self):
         if self.server and self.server.is_signed_in():
@@ -36,13 +35,14 @@ class Connection:
                 print("Signed out successfully!")
             except Exception as e:
                 print(f"Failed to sign out: {e}")
+                raise
 
 
 class Permission(Connection):
     def __init__(self, server_url, username, password, site_id=''):
         super().__init__(server_url, username, password, site_id)
 
-    def list_users(self):
+    def list_users(self) -> pd.DataFrame:
         try:
             users, _ = self.server.users.get()
             user_list = []
@@ -54,9 +54,11 @@ class Permission(Connection):
             return df
         except Exception as e:
             print(f"Failed to retrieve users: {e}")
-            return
+            raise
 
-    def get_permissions_and_metadata_for_item(self, item, item_type):
+    def get_permissions_and_metadata_for_item(self, item: str, item_type: str) -> Tuple[
+        List[str], List[str], List[str], Optional[str], Optional[str]
+    ]:
         try:
             user_types, user_names, user_capabilities = [], [], []
             getattr(self.server, item_type).populate_permissions(item)
@@ -91,7 +93,7 @@ class Permission(Connection):
             user_capabilities = ['Allow']
             return [['Deny'], user_names, user_capabilities] + ['Deny']*2
 
-    def fetch_and_list_permissions(self):
+    def fetch_and_list_permissions(self) -> pd.DataFrame:
         project = [p for p in TSC.Pager(self.server.projects)]
         sources = ['projects', 'workbooks', 'datasources', 'flows']
         projects = []
